@@ -1,0 +1,39 @@
+{% extends 'places/base.html' %}
+
+{% block content %}
+<section class="state-tourist-section py-5" style="background: linear-gradient(135deg, #f4a261 0%, #e9c46a 100%);">
+  <div class="container mt-5">
+    <h2 class="text-center mb-4" style="color: #0077b6; font-family: 'Poppins', sans-serif;">
+      🛕 Tourist Places in {{ state.name|title }}
+    </h2>
+
+    <div class="row">
+      {% for place in places %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100" style="border-radius: 15px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+          <img src="{{ place.image.url }}" class="card-img-top" alt="{{ place.name }}" style="height: 250px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title" style="font-family: 'Poppins', sans-serif;">
+              <a href="{% url 'places:place_detail' place.id %}" style="text-decoration: none; color: black;">
+                {{ place.name }}
+              </a>
+            </h5>
+            <p class="card-text description-container" style="flex-grow: 1;">
+              <span id="short-{{ place.id }}" class="description-text">{{ place.description|truncatechars:120 }}</span>
+              <span id="full-{{ place.id }}" class="description-text" style="display:none;">{{ place.description }}</span>
+              <span id="toggle-{{ place.id }}" class="description-toggle" onclick="toggleDescription({{ place.id }})" style="cursor: pointer; color: #0077b6;">...</span>
+            </p>
+            <p><strong>Best Time:</strong> {{ place.best_time }}</p>
+            <a href="{{ place.location_url }}" class="btn btn-outline-primary mt-auto" target="_blank" style="font-family: 'Poppins', sans-serif; transition: background-color 0.3s ease;">
+              📍 View on Map
+            </a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <p class="text-center">No places found for this state.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

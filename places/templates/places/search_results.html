@@ -1,0 +1,32 @@
+{% extends 'places/base.html' %}
+
+{% block content %}
+<h2>Search Results for "{{ query }}"</h2>
+
+{% if results %}
+  <div class="row">
+    {% for place in results %}
+      <div class="col-md-4 mb-3">
+        <div class="card">
+          {% if place.image %}
+          <img src="{{ place.image.url }}" class="card-img-top" alt="{{ place.name }}">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">
+              <a href="{% url 'places:place_detail' place.id %}">{{ place.name }}</a>
+            </h5>
+            <p class="card-text description-container">
+              <span id="short-{{ place.id }}" class="description-text">{{ place.description|truncatewords:20 }}</span>
+              <span id="full-{{ place.id }}" class="description-text" style="display:none;">{{ place.description }}</span>
+              <span id="toggle-{{ place.id }}" class="description-toggle" onclick="toggleDescription({{ place.id }})">...</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>No places found matching your search.</p>
+{% endif %}
+
+{% endblock %}

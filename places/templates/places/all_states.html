@@ -1,0 +1,22 @@
+{% extends 'places/base.html' %}
+{% block content %}
+<h2 class="mb-4 text-center">Explore All States of Bharat</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    {% for state in states %}
+    <div class="col">
+        <div class="card h-100 shadow-sm border-0 rounded-3 overflow-hidden">
+            {% if state.image %}
+            <img src="{{ state.image.url }}" class="card-img-top" alt="{{ state.name }}" style="height: 200px; object-fit: cover;">
+            {% else %}
+            <img src="https://via.placeholder.com/400x200?text=State" class="card-img-top" alt="{{ state.name }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">{{ state.name }}</h5>
+                <p class="card-text text-muted">Discover beautiful places in this state.</p>
+                <a href="{% url 'places:state_places' state.id %}" class="btn btn-primary mt-auto align-self-start">Explore Places</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,164 @@
+<!-- places/templates/home.html -->
+{% extends 'places/base.html' %}
+{% block content %}
+<style>
+  /* Navbar styles */
+  nav.navbar {
+    background-color: #1a1a40; /* Deep Indigo */
+  }
+  nav.navbar .navbar-brand,
+  nav.navbar .nav-link,
+  nav.navbar .navbar-text {
+    color: #ffffff !important; /* White */
+  }
+  .hero-banner {
+    position: relative;
+    background-image: linear-gradient(rgba(244, 162, 97, 0.6), rgba(233, 196, 106, 0.6)), url('/static/images/hero-banner.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
+    color: #f4a261; /* Saffron / Warm Gold */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    border-radius: 8px;
+  }
+  .hero-banner h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    font-weight: bold;
+    background: linear-gradient(90deg, #00cfff, #005eff, #7ee587);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+  .hero-banner p {
+    font-family: 'Lora', serif;
+    font-size: 1.5rem;
+    margin-top: 10px;
+    background: linear-gradient(90deg, #00cfff, #005eff, #7ee587);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+  }
+  .home-search-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  .home-search-box {
+    width: 50%;
+    max-width: 600px;
+  }
+  .home-search-box input[type="search"] {
+    height: 45px;
+    font-size: 1.25rem;
+    background-color: #f8f9fa; /* Slightly off-white background */
+    border: 1px solid #ced4da; /* Border */
+  }
+  .home-search-box button {
+    height: 45px;
+    font-size: 1.1rem;
+    background-color: #0077b6; /* Rich Blue */
+    border-color: #0077b6;
+  }
+  .home-search-box button:hover {
+    background-color: #005f87;
+    border-color: #005f87;
+  }
+  .card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* Soft shadow */
+    border: 1px solid rgba(0,0,0,0.1); /* Light border */
+  }
+  .card .card-title {
+    color: #222831; /* Black or dark slate */
+  }
+  @media (max-width: 576px) {
+    .home-search-box {
+      width: 90%;
+    }
+    .hero-banner h1 {
+      font-size: 2rem;
+    }
+    .hero-banner p {
+      font-size: 1.2rem;
+    }
+  }
+  footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    background: linear-gradient(45deg, #1a1a40, #0077b6);
+    color: #f4a261;
+    text-align: center;
+    font-family: 'Merriweather', serif;
+  }
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Lora&family=Merriweather&family=Poppins&display=swap" rel="stylesheet">
+
+<div class="hero-banner">
+  <h1>Welcome to Bharat Explorer</h1>
+  <p>Discover the beauty and culture of India’s most amazing places</p>
+</div>
+
+<div class="home-search-container">
+  <form class="home-search-box d-flex" method="get" action="{% url 'places:search_places' %}">
+    <input type="search" class="form-control me-2" placeholder="Search places" aria-label="Search" name="q" value="{{ request.GET.q|default:'' }}">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </form>
+</div>
+
+{% if featured_states %}
+<section class="featured-states mt-5">
+  <h2 class="text-center mb-4">Featured States</h2>
+  <div class="row justify-content-center">
+    {% for state in featured_states %}
+    <div class="col-md-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <a href="{% url 'places:state_places' state.id %}" style="text-decoration: none; color: inherit;">
+          <img src="{{ state.image.url }}" class="card-img-top" alt="{{ state.name|default:'State image' }}" style="height: 180px; object-fit: cover;">
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ state.name }}</h5>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+<p class="text-center mt-4">No featured states available at the moment.</p>
+{% endif %}
+
+{% if recent_temples %}
+<section class="recent-temples mt-5">
+  <h2 class="text-center mb-4">Recent Additions / Trending Temples</h2>
+  <div class="row justify-content-center">
+    {% for temple in recent_temples %}
+    <div class="col-md-3 mb-4">
+      <div class="card h-100 shadow-sm">
+        <a href="{% url 'places:place_detail' temple.id %}" style="text-decoration: none; color: inherit;">
+          {% if temple.image %}
+            <img src="{{ temple.image.url }}" class="card-img-top" alt="{{ temple.name|default:'Temple image' }}" style="height: 180px; object-fit: cover;">
+          {% else %}
+            <img src="/static/images/placeholder.jpg" class="card-img-top" alt="Placeholder image" style="height: 180px; object-fit: cover;">
+          {% endif %}
+          <div class="card-body text-center">
+            <h5 class="card-title">{{ temple.name }}</h5>
+          </div>
+        </a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+<p class="text-center mt-4">No recent temples found.</p>
+{% endif %}
+{% endblock %}
