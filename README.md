@@ -53,10 +53,9 @@ bharat_explorer/
 
 
 🧾 License
-This project is licensed under the MIT License. Feel free to use, modify, and share it.
+This project is licensed under the MIT License. You can use, modify, and distribute it freely.
 
-✨ Author
+👨‍💻 Author
 Nitesh Kumar
-📧 Email:niteshkumar2004.in@gmail.com
-🔗 GitHub: niteshkumar9368
-
+📧 niteshkumar2004.in@gmail.com
+🔗 GitHub Profile
