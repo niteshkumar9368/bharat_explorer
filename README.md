@@ -10,7 +10,6 @@
 
 - 🗺️ Browse Indian tourist destinations by **state**
 - 🖼️ View place details with **images**, **location map**, and **best time to visit**
-- ❤️ Add/remove tourist places to your **personal wishlist**
 - 🔐 User **registration and login system**
 - 🧭 Gallery view with multiple images for each tourist place
 - ✨ Fully responsive and clean UI
@@ -51,11 +50,14 @@ bharat_explorer/
 ├── README.md                # Project documentation
 └── requirements.txt         # Python dependencies
 
+--🧾 License
+This project is licensed under the MIT License...
+## 🧾 License
 
-🧾 License
-This project is licensed under the MIT License. You can use, modify, and distribute it freely.
+This project is licensed under the **MIT License**. You can use, modify, and distribute it freely.
+## ✨ Author
 
-👨‍💻 Author
-Nitesh Kumar
-📧 niteshkumar2004.in@gmail.com
-🔗 GitHub Profile
+**Nitesh Kumar**  
+📧 [niteshkumar2004.in@gmail.com](mailto:niteshkumar2004.in@gmail.com)  
+🔗 [GitHub: niteshkumar9368](https://github.com/niteshkumar9368)
+
